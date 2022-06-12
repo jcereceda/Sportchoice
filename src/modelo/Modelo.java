@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
+
 import vista.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -35,8 +38,9 @@ public class Modelo {
 	private File ficheroConexion;
 	private InputStream entrada;
 	private OutputStream salida;
-	// Datos de usuario
-	private String email, poblacion;
+	// Datos de usuario para gestion de perfil
+	private String email, poblacion, sexo;
+	private Date fechaNac;
 
 	public Modelo() {
 		crearConexion();
@@ -568,7 +572,11 @@ public class Modelo {
 			asignarCampos.next();
 			email = asignarCampos.getString(3);
 			poblacion = asignarCampos.getString(4);
+			sexo = asignarCampos.getString(7);
+			fechaNac = new SimpleDateFormat("yyyy-MM-dd").parse(asignarCampos.getString(5));
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		((GestionDePerfil) pantallas[5]).actualizar();
@@ -638,5 +646,12 @@ public class Modelo {
 		cargarTablaAdmin();
 		((Admin) pantallas[8]).actualizar();
 	}
-	
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public Date getFechaNac() {
+		return fechaNac;
+	}
 }

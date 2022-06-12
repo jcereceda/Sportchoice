@@ -124,7 +124,7 @@ public class Eventos extends JFrame {
 		btnEditarPerfil1.setBounds(2, 2, 164, 44);
 		panelOpciones.add(btnEditarPerfil1);
 
-		btnCerrarSesion = new JButton("Cerrar SesiÃ³n");
+		btnCerrarSesion = new JButton("Cerrar Sesión");
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.cambioPantallas(7, 0);

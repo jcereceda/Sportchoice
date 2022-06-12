@@ -42,8 +42,8 @@ public class GestionDePerfil extends JFrame {
 	private JLabel lblNewLabel_6_1_2_1;
 	private JLabel lblNewLabel_6_1_2_1_1;
 	private JLabel lblNewLabel_6_1_2_1_1_1;
-	private JSpinner spinner;
-	private JSpinner spinner_1;
+	private JSpinner spinnerSexo;
+	private JSpinner spinnerFecha;
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -137,16 +137,17 @@ public class GestionDePerfil extends JFrame {
 		lblNewLabel_6_1_2_1_1_1.setBounds(10, 212, 82, 19);
 		panel_1.add(lblNewLabel_6_1_2_1_1_1);
 
-		spinner = new JSpinner();
-		spinner.setModel(new SpinnerListModel(new String[] { "Hombre", "Mujer", "Otro" }));
-		spinner.setBounds(10, 183, 95, 20);
-		panel_1.add(spinner);
+		spinnerSexo = new JSpinner();
+		spinnerSexo.setModel(new SpinnerListModel(new String[] { "Hombre", "Mujer", "Otro" }));
+		spinnerSexo.setBounds(10, 183, 95, 20);
+		panel_1.add(spinnerSexo);
 
-		spinner_1 = new JSpinner();
-		spinner_1.setModel(new SpinnerDateModel(new Date(1652133600000L), new Date(1652133600000L),
-				new Date(1652133600000L), Calendar.DAY_OF_MONTH));
-		spinner_1.setBounds(10, 241, 95, 20);
-		panel_1.add(spinner_1);
+		spinnerFecha = new JSpinner();
+		spinnerFecha.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DATE));
+		JSpinner.DateEditor de = new JSpinner.DateEditor(spinnerFecha, "yyyy-MM-dd");
+		spinnerFecha.setEditor(de);
+		spinnerFecha.setBounds(10, 241, 95, 20);
+		panel_1.add(spinnerFecha);
 
 		lblNewLabel_6 = new JLabel("Editar Perfil:");
 		lblNewLabel_6.setBounds(57, 32, 148, 35);
@@ -227,6 +228,10 @@ public class GestionDePerfil extends JFrame {
 		txtUbicacion.setText(ubicacion);
 		String email = modelo.getEmail();
 		lblEmail.setText(email);
+		String sexo = modelo.getSexo();
+		spinnerSexo.setValue(sexo);
+		Date fechaNac = modelo.getFechaNac();
+		spinnerFecha.setValue(fechaNac);
 	}
 
 }
