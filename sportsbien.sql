@@ -10,7 +10,7 @@ create table usuarios (
 	nombre varchar (30),
 	email varchar (30),
 	poblacion varchar (30),
-	fecha_nacimiento date,
+	fecha_nacimiento varchar (20),
     passwd varchar(20),
     sexo varchar(10) default "Otro",
 	primary key (codigo_usuario),
