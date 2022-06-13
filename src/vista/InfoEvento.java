@@ -354,9 +354,12 @@ public class InfoEvento extends JFrame {
 		if (resultado.equals("Correcto")) {
 			lblError.setForeground(SystemColor.black);
 			lblError.setText("Unido al evento");
+		} else if(resultado.equals("fallo")){
+			lblError.setForeground(SystemColor.red);
+			lblError.setText("Error, ya estás dentro");
 		} else {
 			lblError.setForeground(SystemColor.red);
-			lblError.setText("Error, ya estï¿½s dentro");
+			lblError.setText("Error, maxima ocupación");
 		}
 
 	}
