@@ -31,7 +31,6 @@ public class Modelo {
 	int numParticipantes;
 	String fecha;
 	private String resultadoUnirse;
-	String[] usuariosxevento;
 	private int codEvento, codigoUsuario, codigoEvento;
 	// Archivo conexion BBDD
 	private Properties datosConexion;
@@ -573,7 +572,11 @@ public class Modelo {
 			email = asignarCampos.getString(3);
 			poblacion = asignarCampos.getString(4);
 			sexo = asignarCampos.getString(7);
-			fechaNac = new SimpleDateFormat("yyyy-MM-dd").parse(asignarCampos.getString(5));
+			if(asignarCampos.getString(5) == null) {
+				fechaNac = new Date();
+			} else {
+				fechaNac = new SimpleDateFormat("yyyy-MM-dd").parse(asignarCampos.getString(5));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -653,5 +656,24 @@ public class Modelo {
 
 	public Date getFechaNac() {
 		return fechaNac;
+	}
+
+	public void modificarPerfil(String user, String nombre, String ubicacion, String sexo, String fecha) {
+		String modificar = "update usuarios set nombre = ?, poblacion = ?, sexo = ?, fecha_nacimiento = ? where nombre = ?";
+		
+		try {
+			PreparedStatement pstmt = conexion.prepareStatement(modificar);
+			pstmt.setString(1, nombre);
+			pstmt.setString(2, ubicacion);
+			pstmt.setString(3, sexo);
+			pstmt.setString(4, fecha);
+			pstmt.setString(5, user);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		((GestionDePerfil) pantallas[5]).perfilActualizado();
+		
+		
 	}
 }

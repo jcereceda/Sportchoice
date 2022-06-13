@@ -24,6 +24,10 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 
@@ -54,6 +58,7 @@ public class GestionDePerfil extends JFrame {
 	private Modelo modelo;
 	private Controlador controlador;
 	private JLabel lblSportsChoice;
+	private JLabel lblModif;
 
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
@@ -183,12 +188,19 @@ public class GestionDePerfil extends JFrame {
 		btnNewButton.setFont(new Font("Bauhaus 93", Font.PLAIN, 17));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controlador.modificarPerfil();
 			}
 		});
 		btnNewButton.setBackground(new Color(173, 255, 47));
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBounds(65, 266, 103, 26);
 		panel_2.add(btnNewButton);
+		
+		lblModif = new JLabel("");
+		lblModif.setFont(new Font("Century Gothic", Font.BOLD, 11));
+		lblModif.setHorizontalAlignment(SwingConstants.CENTER);
+		lblModif.setBounds(44, 302, 143, 29);
+		panel_2.add(lblModif);
 
 		btnAtras = new JButton("");
 		btnAtras.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -218,6 +230,12 @@ public class GestionDePerfil extends JFrame {
 		btnAyuda.setActionCommand("");
 		btnAyuda.setIcon(new ImageIcon(CrearEvento.class.getResource("/imagenes/ayuddddda.png")));
 
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				lblModif.setText("");
+			}
+		});
 	}
 
 	public void actualizar() {
@@ -231,7 +249,35 @@ public class GestionDePerfil extends JFrame {
 		String sexo = modelo.getSexo();
 		spinnerSexo.setValue(sexo);
 		Date fechaNac = modelo.getFechaNac();
-		spinnerFecha.setValue(fechaNac);
+		if (fechaNac == null) {
+			spinnerFecha.setValue(new Date());
+		} else {
+			spinnerFecha.setValue(fechaNac);
+		}
+		
 	}
 
+	public String getNombreNuevo() {
+		return txtNombre.getText();
+	}
+
+	public String getUbiNueva() {
+		return txtUbicacion.getText();
+	}
+
+	public String getSexo() {
+		return (String) spinnerSexo.getValue();
+	}
+
+	public String getFecha() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+		String fecha = dateFormat.format(spinnerFecha.getValue());  
+		return fecha;
+	}
+
+	public void perfilActualizado() {
+		lblModif.setText("Perfil Actualizado");
+	}
+	
+	
 }
