@@ -72,9 +72,6 @@ public class Controlador {
 		modelo.subirMensaje(mensaje);
 	}
 
-	public void verArchivo() {
-		modelo.verArchivo();
-	}
 
 	public void modificarArchivo() {
 		String usuarioBD = ((DatosConex) pantallas[10]).getUsuarioBD();
