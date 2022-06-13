@@ -31,7 +31,7 @@ public class Modelo {
 	int numParticipantes;
 	String fecha;
 	private String resultadoUnirse;
-	private int codEvento, codigoUsuario, codigoEvento;
+	private int codEvento, codigoUsuario, codigoEvento, numeroUsuarios;
 	// Archivo conexion BBDD
 	private Properties datosConexion;
 	private File ficheroConexion;
@@ -353,18 +353,24 @@ public class Modelo {
 	}
 
 	public void unirAEvento(String nombreEvento2) {
-
+		
 		// Sacar codigo de evento
 		resultadoUnirse = "Correcto";
-		String consultaCodEvento = "select codigoEvento from eventos where nombre =?";
+		String consultaCodEvento = "select codigoEvento,numeroUsuarios from eventos where nombre =?";
 		try {
 			PreparedStatement codEvento = conexion.prepareStatement(consultaCodEvento);
 			codEvento.setString(1, nombreEvento2);
 			ResultSet resultado = codEvento.executeQuery();
 			resultado.next();
 			codigoEvento = resultado.getInt(1);
+			numeroUsuarios = resultado.getInt(2);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		int dentro = modeloTablaUsuarioXEvento.getRowCount();
+		
+		if(dentro >= numeroUsuarios) {
+			resultadoUnirse = "Maximo";
 		}
 
 		// Sacar codigo de Usuario
@@ -377,7 +383,7 @@ public class Modelo {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// Comprobar que no est� el usuario en el evento
+		// Comprobar que no esta el usuario en el evento
 
 		String comprobacion = "Select cod_usuario,cod_evento from usuario_eventos";
 		try {
@@ -391,7 +397,7 @@ public class Modelo {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		// Insertar usuario
 		String insertar = "insert into usuario_eventos (cod_usuario,cod_evento) VALUES (?,?)";
 		if (resultadoUnirse.equals("Correcto")) {
@@ -406,7 +412,7 @@ public class Modelo {
 				e.printStackTrace();
 			}
 		}
-
+		
 		cargarTablaUsuariosXEvento();
 
 		((InfoEvento) pantallas[4]).actualizarUsers();
