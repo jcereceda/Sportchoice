@@ -80,7 +80,7 @@ public class Controlador {
 		String usuarioBD = ((DatosConex) pantallas[10]).getUsuarioBD();
 		String passBD = ((DatosConex) pantallas[10]).getPassBD();
 		String rutaBD = ((DatosConex) pantallas[10]).getRutaBD();
-		modelo.modificarArchivo(usuarioBD,passBD,rutaBD);
+		modelo.modificarArchivo(usuarioBD, passBD, rutaBD);
 	}
 
 	public void eliminarUsuario() {
@@ -88,6 +88,12 @@ public class Controlador {
 		modelo.eliminarUsuario(nombre);
 	}
 
-	
+	public void modificarPerfil() {
+		String nombre = ((GestionDePerfil) pantallas[5]).getNombreNuevo();
+		String ubicacion = ((GestionDePerfil) pantallas[5]).getUbiNueva();
+		String sexo = ((GestionDePerfil) pantallas[5]).getSexo();
+		String fecha = ((GestionDePerfil) pantallas[5]).getFecha();
+		modelo.modificarPerfil(user,nombre, ubicacion, sexo, fecha);
+	}
 
 }
