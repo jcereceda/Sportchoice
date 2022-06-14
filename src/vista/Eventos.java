@@ -251,6 +251,7 @@ public class Eventos extends JFrame {
 		getContentPane().add(scrollPane);
 
 		table = new JTable();
+		table.setDefaultEditor(Object.class, null);
 		table.setSelectionBackground(new Color(204, 255, 102));
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent arg0) {
