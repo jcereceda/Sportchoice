@@ -115,28 +115,73 @@ VALUES
 ('3', 'El polideportivo de Las Rozas esta cerrado','5','3',NOW()),
 ('4', 'Pues na nos quedamos sin partido','7','3',NOW());
 
+-- Actualizar el usuario admin al rol admin
 update usuarios set rol = "admin" where nombre = "admin";
 
-select * from usuarios;
- -- Selects
 
-use sportchoice;
+ -- CONSULTAS
+ -- Cargar tabla de usuarios por evento
+ select u.nombre from usuarios u inner join usuario_eventos ue ON u.codigo_usuario = ue.cod_usuario AND ue.cod_evento = 1;
+ 
+-- Cargar tabla de Admin
+Select * from usuarios;
+
+-- Cargar tabla Eventos
 select e.nombre, e.fecha, d.nombre as deporte, e.lugar, e.numeroUsuarios as 'Nº Usuarios' from eventos e INNER JOIN deportes d ON e.cod_deporte = d.cod_deporte;
 
+-- Cargar tabla foro
+select CONCAT(u.nombre,': ', m.mensaje),fecha_envio from mensaje m INNER JOIN usuarios u ON u.codigo_usuario = m.cod_usuario where cod_foro = 1;
+
+-- Verificar Login
 SELECT * FROM usuarios WHERE nombre = 'Gervasio' AND passwd = 123;
 
+-- Comprobar que exista un usuario para registro
 SELECT nombre,email FROM usuarios;
 
+-- Sacar los campos de infoEvento
+select e.nombre,e.fecha,d.nombre,e.lugar,e.numeroUsuarios,e.observaciones from eventos e inner join deportes d on e.cod_deporte = d. cod_deporte where codigoEvento =1;
+
+-- UNIR A EVENTO
+-- Sacar codigo y numero de usuarios que caben
+Select codigoEvento, numeroUsuarios from eventos where nombre = 'Padelsiuco';
+-- Sacar el codigo de usuario
+select codigo_usuario from usuarios where nombre = 'Franklin';
+-- Comprobar que no exista ya la relación
 Select cod_usuario,cod_evento from usuario_eventos;
 
-Select codigoEvento from eventos where nombre = 'Franklin';
-
+-- CREAR NUEVO EVENTO
+-- Comprobar que no exista un evento con el mismo nombre
+Select nombre from eventos;
+-- Sacar el codigo del deporte introducido
 select cod_deporte from deportes where nombre = 'Padel';
 
-Select nombre from eventos;
-
-select codigo_usuario from usuarios where nombre = 'Franklin';
-
+-- Sacar codigo de evento para un evento concreto
 select codigoEvento from eventos where nombre = 'Padelsiuco';
 
-SELECT * FROM eventos;
+-- Codigo de usuario para el cambio de foro
+select codigo_usuario from usuarios where nombre = "Franklin";
+
+-- Sacar toda la informacion del usuario para gestion de perfil
+Select * from usuarios where nombre = "Gervasio";
+
+-- INSERCIONES
+-- Insertar un nuevo usuario
+Insert into usuarios (nombre,email,passwd) VALUES ("Pepe","pepe@u-tad.com","1234");
+
+-- Insertar un usuario en un evento 
+insert into usuario_eventos (cod_usuario,cod_evento) VALUES (2,3);
+
+-- Insertar nuevo evento
+INSERT INTO eventos (nombre,fecha,cod_deporte,lugar,numeroUsuarios,observaciones) VALUES ("Partido","2022-06-14",1,"Canchas",12,"");
+
+-- Insertar un nuevo foro (siempre mismo codigo para los dos)
+Insert into foro (codigo_foro, codigo_evento) VALUES (6,6);
+
+-- Insertar nuevo mensaje en un foro
+insert into mensaje (mensaje,cod_usuario,cod_foro,fecha_envio) values ("Hola",2,3,NOW());
+
+-- ELIMINAR Usuario
+delete from usuarios where nombre = "Rober";
+
+-- Actualizar datos de usuario
+update usuarios set nombre = "NombreNuevo", poblacion = "Matas, Las", sexo = "Otro", fecha_nacimiento = "2000-09-25" where nombre = "Marcos";

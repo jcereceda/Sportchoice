@@ -1,6 +1,10 @@
 package vista;
 
-
+/**
+ * Clase pantalla de inicio, sale tras iniciar sesión, es la raiz del resto de las pantallas. Igual que en el resto de pantallas,
+ * pero siendo la primera saldrá el nombre de usuario, el panel opciones para cerrar sesióno ir a la pantalla de gestión de perfil,
+ * también el botón de ayuda.
+ */
 import java.awt.EventQueue;
 import controlador.Controlador;
 import modelo.Modelo;
@@ -45,6 +49,11 @@ public class InicioAPP extends JFrame {
 	private JButton btnCerrarSesion;
 	private JPanel panelOpciones;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -53,6 +62,10 @@ public class InicioAPP extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public InicioAPP() {
 		getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
@@ -222,6 +235,9 @@ public class InicioAPP extends JFrame {
 		btnAyuda.setIcon(new ImageIcon(InicioAPP.class.getResource("/imagenes/ayuddddda.png")));
 	}
 
+	/**
+	 * Poner nombre de cabecera del usuario que inicio sesión
+	 */
 	public void setNombreCabecera() {
 		String nombreUsuario = modelo.getNombreUsuario();
 		lblNombre.setText(nombreUsuario);

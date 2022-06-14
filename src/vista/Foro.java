@@ -1,5 +1,10 @@
 package vista;
 
+/**
+ * Clase pantalla foro - asociado a cada evento - pedirá una tabla al modelo con los 
+ * mensajes de ese foro - evento en concreto con las fechas de sus envios
+ 
+ */
 import java.awt.EventQueue;
 
 import java.awt.Font;
@@ -62,6 +67,11 @@ public class Foro extends JFrame {
 	private JTable table_1;
 	private JPanel panelOpciones;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -70,6 +80,10 @@ public class Foro extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public Foro() {
 		getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
@@ -276,15 +290,26 @@ public class Foro extends JFrame {
 
 	}
 
+	/**
+	 * Devuelve al controlador el mensaje escrito
+	 * 
+	 * @return mensaje escrito en el textarea
+	 */
 	public String getMensaje() {
 		return textAreaEscribirMensaje.getText();
 	}
 
+	/**
+	 * Método para actualizar la pantalla tras insertar el mensaje y borrar el
+	 * textarea a modo de app de chat
+	 */
 	public void actualizar() {
 		table_1.setModel(modelo.getModeloChat());
 		textAreaEscribirMensaje.setText("");
 	}
-	
+	/**
+	 * Poner nombre de cabecera del usuario que inicio sesión
+	 */
 	public void setNombreCabecera() {
 		String nombreUsuario = modelo.getNombreUsuario();
 		lblNombre.setText(nombreUsuario);

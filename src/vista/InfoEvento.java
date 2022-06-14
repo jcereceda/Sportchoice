@@ -1,5 +1,9 @@
 package vista;
 
+/**
+ * Clase pantalla infoevento, en ella se puede ver toda la información del evento al que hemos accedido, unirnos, ver los participantes
+ * y acceder al foro de el evento
+ */
 import java.awt.EventQueue;
 
 import java.awt.Font;
@@ -69,6 +73,11 @@ public class InfoEvento extends JFrame {
 	private JButton btnForo;
 	private JPanel panelOpciones;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -77,6 +86,10 @@ public class InfoEvento extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public InfoEvento() {
 		getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
@@ -329,11 +342,18 @@ public class InfoEvento extends JFrame {
 
 	}
 
+	/**
+	 * Poner nombre de cabecera del usuario que inicio sesión
+	 */
 	public void setNombreCabecera() {
 		String nombre = modelo.getNombreUsuario();
 		lblNombre.setText(nombre);
 	}
 
+	/**
+	 * Método para el que al cambiar de evento en la pantalla eventos cambie los
+	 * campos con los datos del nuevo evento seleccionado
+	 */
 	public void actualizar() {
 		nombreEvento = modelo.getNombreEvento();
 		String deporte = modelo.getDeporte();
@@ -348,26 +368,36 @@ public class InfoEvento extends JFrame {
 		lblDeporteEscrito.setText(deporte);
 	}
 
+	/**
+	 * Metodo que al intentar unirse al evento nos indica si nos hemos unido o no
+	 * nos deja
+	 */
 	public void actualizarUsers() {
 		String usuario = modelo.getNombreUsuario();
 		String resultado = modelo.getResultadoUnirse();
 		if (resultado.equals("Correcto")) {
 			lblError.setForeground(SystemColor.black);
 			lblError.setText("Unido al evento");
-		} else if(resultado.equals("fallo")){
+		} else if (resultado.equals("fallo")) {
 			lblError.setForeground(SystemColor.red);
 			lblError.setText("Error, ya estás dentro");
 		} else {
 			lblError.setForeground(SystemColor.red);
 			lblError.setText("Error, maxima ocupación");
 		}
-
 	}
 
+	/**
+	 * Getter
+	 * @return nombre del evento
+	 */
 	public String getNombreEvento() {
 		return nombreEvento;
 	}
 
+	/**
+	 * Método para poner modelo de la tabla de los usuarios x evento cuando se une un usuario con el usuario nuevo
+	 */
 	public void ponerModelo() {
 		table.setModel(modelo.getModeloTablaUsuarioXEvento());
 		addWindowListener(new WindowAdapter() {

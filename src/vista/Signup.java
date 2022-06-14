@@ -1,5 +1,8 @@
 package vista;
 
+/**
+ * Clase pantalla Signup con un formulario para registrar un usuario nuevo con la informacion basica
+ */
 import controlador.Controlador;
 import modelo.Modelo;
 import java.awt.EventQueue;
@@ -46,6 +49,11 @@ public class Signup extends JFrame {
 	private JPasswordField textContrasena1;
 	private JPasswordField textContrasena2;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -54,6 +62,10 @@ public class Signup extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public Signup() {
 
 		getContentPane().setBackground(Color.WHITE);
@@ -204,6 +216,11 @@ public class Signup extends JFrame {
 		panel_1.add(textContrasena2);
 	}
 
+	/**
+	 * Getter llamado por el controlador para crear un nuevo usuarios
+	 * 
+	 * @return nombre, email, pass
+	 */
 	public String getNombre() {
 		return txtUsuario.getText();
 	}
@@ -212,6 +229,7 @@ public class Signup extends JFrame {
 		return textField_2.getText();
 	}
 
+	// Comprobacion de que sean iguales las contraseñas
 	public String getPass() {
 		if ((String.valueOf(textContrasena1.getPassword())).equals(String.valueOf(textContrasena2.getPassword()))) {
 			return String.valueOf(textContrasena2.getPassword());
@@ -221,6 +239,9 @@ public class Signup extends JFrame {
 
 	}
 
+	/**
+	 * Método para saber si el registro es correcto o no
+	 */
 	public void actualizar() {
 		String resultadoSignup = modelo.getResultadoSignup();
 		if (resultadoSignup.equals("Correcto")) {
@@ -228,7 +249,7 @@ public class Signup extends JFrame {
 			lblError.setText("Usuario Creado");
 		} else if (resultadoSignup.equals("passwd no coincidentes")) {
 			lblError.setForeground(SystemColor.RED);
-			lblError.setText("Las contraseÃ±as no coinciden");
+			lblError.setText("Las contraseñas no coinciden");
 		} else {
 			lblError.setForeground(SystemColor.RED);
 			lblError.setText("Usuario o correo no valido");

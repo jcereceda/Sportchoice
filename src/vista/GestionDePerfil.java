@@ -1,5 +1,8 @@
 package vista;
 
+/**
+ * Clase pantalla gestion de perfil, en ella prodremos ver todos los atributos de nuestro perfil y modificar algunos.
+ */
 import java.awt.EventQueue;
 import controlador.Controlador;
 import modelo.Modelo;
@@ -60,6 +63,11 @@ public class GestionDePerfil extends JFrame {
 	private JLabel lblSportsChoice;
 	private JLabel lblModif;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -68,6 +76,10 @@ public class GestionDePerfil extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public GestionDePerfil() {
 
 		getContentPane().setBackground(SystemColor.textHighlightText);
@@ -195,7 +207,7 @@ public class GestionDePerfil extends JFrame {
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setBounds(65, 266, 103, 26);
 		panel_2.add(btnNewButton);
-		
+
 		lblModif = new JLabel("");
 		lblModif.setFont(new Font("Century Gothic", Font.BOLD, 11));
 		lblModif.setHorizontalAlignment(SwingConstants.CENTER);
@@ -238,25 +250,11 @@ public class GestionDePerfil extends JFrame {
 		});
 	}
 
-	public void actualizar() {
-		String nombre = modelo.getNombreUsuario();
-		lblNombre.setText(nombre);
-		txtNombre.setText(nombre);
-		String ubicacion = modelo.getUbicacion();
-		txtUbicacion.setText(ubicacion);
-		String email = modelo.getEmail();
-		lblEmail.setText(email);
-		String sexo = modelo.getSexo();
-		spinnerSexo.setValue(sexo);
-		Date fechaNac = modelo.getFechaNac();
-		if (fechaNac == null) {
-			spinnerFecha.setValue(new Date());
-		} else {
-			spinnerFecha.setValue(fechaNac);
-		}
-		
-	}
-
+	/**
+	 * Getters llamados por el controlador para modificar los campos
+	 * 
+	 * @return nombre, ubicacion, sexo, fecha nacimiento
+	 */
 	public String getNombreNuevo() {
 		return txtNombre.getText();
 	}
@@ -270,14 +268,40 @@ public class GestionDePerfil extends JFrame {
 	}
 
 	public String getFecha() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-		String fecha = dateFormat.format(spinnerFecha.getValue());  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha = dateFormat.format(spinnerFecha.getValue());
 		return fecha;
 	}
 
+	/**
+	 * Metodo llamado por el modelo para asignar los atributos del usuario en caso
+	 * de haber sido modificados
+	 */
+	public void actualizar() {
+		String nombre = modelo.getNombreUsuario();
+		lblNombre.setText(nombre);
+		txtNombre.setText(nombre);
+		String ubicacion = modelo.getUbicacion();
+		txtUbicacion.setText(ubicacion);
+		String email = modelo.getEmail();
+		lblEmail.setText(email);
+		String sexo = modelo.getSexo();
+		spinnerSexo.setValue(sexo);
+		Date fechaNac = modelo.getFechaNac();
+		// Por defecto la fecha en que estamos
+		if (fechaNac == null) {
+			spinnerFecha.setValue(new Date());
+		} else {
+			spinnerFecha.setValue(fechaNac);
+		}
+
+	}
+
+	/**
+	 * Método llamado por el modelo para informar que el perfil fue actualizado correctamente
+	 */
 	public void perfilActualizado() {
 		lblModif.setText("Perfil Actualizado");
 	}
-	
-	
+
 }

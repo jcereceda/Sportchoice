@@ -1,7 +1,7 @@
 package vista;
 
 /**
- * @author GonzaloPlaza , Javi
+ * Clase pantalla Login - En ella podremos iniciar sesión o ir a la pantalla registro
  */
 import java.awt.EventQueue;
 import controlador.Controlador;
@@ -53,6 +53,11 @@ public class Login extends JFrame {
 	private JLabel lblNewLabel;
 	private JButton btnNewButton;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -61,6 +66,10 @@ public class Login extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public Login() {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Inicio de sesion");
@@ -81,13 +90,13 @@ public class Login extends JFrame {
 		lblSportsChoice.setIcon(new ImageIcon(InicioAPP.class.getResource("/imagenes/LogoS (1).png")));
 		lblSportsChoice.setBounds(10, 11, 227, 73);
 		panel.add(lblSportsChoice);
-		
+
 		lblNewLabel = new JLabel("Datos Conexi\u00F3n");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		lblNewLabel.setBounds(396, 40, 180, 14);
 		panel.add(lblNewLabel);
-		
+
 		btnNewButton = new JButton("");
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
@@ -194,9 +203,8 @@ public class Login extends JFrame {
 		txtPassword.setBackground(SystemColor.controlHighlight);
 		txtPassword.setBounds(61, 153, 161, 26);
 		panel_1.add(txtPassword);
-		
-		
 
+		// Al desactivar pantalla se ponen los campos vacios
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowDeactivated(WindowEvent e) {
@@ -207,6 +215,11 @@ public class Login extends JFrame {
 		});
 	}
 
+	/**
+	 * Getters para comprobar usuario y contraseña
+	 * 
+	 * @return user y passs
+	 */
 	public String getUser() {
 		return txtUser.getText();
 	}
@@ -215,6 +228,10 @@ public class Login extends JFrame {
 		return String.valueOf(txtPassword.getPassword());
 	}
 
+	/**
+	 * Método que devuelve el resultado del login: si es exitoso o no, o si el rol es
+	 * de admin
+	 */
 	public void actualizar() {
 		String resultado = modelo.getResultadoLogin();
 		if (resultado.equals("Correcto")) {
