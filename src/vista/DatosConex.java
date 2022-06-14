@@ -1,5 +1,8 @@
 package vista;
 
+/**
+ * Pantalla con un formulario para modificar los datos de conexion 
+ */
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -45,7 +48,11 @@ public class DatosConex extends JFrame {
 	private JLabel lblUser;
 	private JLabel lblPasword;
 	private JLabel lblRuta;
-	
+
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public DatosConex() {
 
 		setResizable(false);
@@ -97,18 +104,18 @@ public class DatosConex extends JFrame {
 		lblContrasena.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		lblContrasena.setBounds(85, 126, 138, 25);
 		panel_1.add(lblContrasena);
-		
+
 		lblUser = new JLabel("");
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUser.setIcon(new ImageIcon(Signup.class.getResource("/imagenes/logo.png")));
 		lblUser.setBounds(22, 78, 53, 47);
 		panel_1.add(lblUser);
-		
+
 		JLabel lblUser3 = new JLabel("");
 		lblUser3.setIcon(new ImageIcon(Signup.class.getResource("/imagenes/ruta2.png")));
 		lblUser3.setBounds(22, 192, 53, 47);
 		panel_1.add(lblUser3);
-		
+
 		lblPasword = new JLabel("");
 		lblPasword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPasword.setIcon(new ImageIcon(Signup.class.getResource("/imagenes/Imagen15.png")));
@@ -119,13 +126,13 @@ public class DatosConex extends JFrame {
 		lblRuta.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		lblRuta.setBounds(85, 185, 45, 20);
 		panel_1.add(lblRuta);
+		// Al cargar la pagina se muestra el contenido del archivo de conexion
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				verArchivo();
 			}
 		});
-		
 
 		JLabel lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
@@ -148,7 +155,7 @@ public class DatosConex extends JFrame {
 		txtRuta.setBackground(SystemColor.controlHighlight);
 		txtRuta.setBounds(85, 205, 220, 25);
 		panel_1.add(txtRuta);
-		
+
 		btnModificar = new JButton("Modificar");
 		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnModificar.addActionListener(new ActionListener() {
@@ -161,13 +168,13 @@ public class DatosConex extends JFrame {
 		btnModificar.setBackground(new Color(173, 255, 47));
 		btnModificar.setBounds(142, 275, 98, 25);
 		panel_1.add(btnModificar);
-		
+
 		lblActualizacion = new JLabel("");
 		lblActualizacion.setFont(new Font("Century Gothic", Font.PLAIN, 11));
 		lblActualizacion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActualizacion.setBounds(63, 235, 242, 13);
 		panel_1.add(lblActualizacion);
-		
+
 		btnAtras = new JButton("");
 		btnAtras.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAtras.addActionListener(new ActionListener() {
@@ -184,22 +191,37 @@ public class DatosConex extends JFrame {
 
 	}
 
-	protected void verArchivo() {
-		
-		txtUsuario.setText(modelo.getUserBD());
-		txtContrasena.setText(modelo.getPassBD());
-		txtRuta.setText(modelo.getRutaBD());
-		
-	}
-
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
-			this.controlador = controlador;
+		this.controlador = controlador;
 	}
 
 	public void setModelo(Modelo modelo2) {
 		modelo = modelo2;
 	}
 
+	/**
+	 * Método para mostrar en los campos de texto el contenido del archivo con los
+	 * datos de conexion
+	 */
+	protected void verArchivo() {
+
+		txtUsuario.setText(modelo.getUserBD());
+		txtContrasena.setText(modelo.getPassBD());
+		txtRuta.setText(modelo.getRutaBD());
+
+	}
+
+	/**
+	 * Getters pedidos por el controlador para modificar el archivo con los datos de
+	 * conexion
+	 * 
+	 * @return usuario, pass y ruta de la BD
+	 */
 	public String getUsuarioBD() {
 		return txtUsuario.getText();
 	}
@@ -212,6 +234,9 @@ public class DatosConex extends JFrame {
 		return txtRuta.getText();
 	}
 
+	/**
+	 * Resultado de actualizar el fichero , llamado por el modelo
+	 */
 	public void actualizar() {
 		lblActualizacion.setText("Fichero actualizado");
 		txtContrasena.setText("");

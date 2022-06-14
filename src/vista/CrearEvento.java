@@ -1,5 +1,8 @@
 package vista;
 
+/**
+ * Pantalla crear evento. Formulario para dar de alta nuevos eventos
+ */
 import controlador.Controlador;
 import modelo.Modelo;
 /**
@@ -58,6 +61,11 @@ public class CrearEvento extends JFrame {
 	private JLabel lblError;
 	private JPanel panelOpciones;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -66,6 +74,10 @@ public class CrearEvento extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public CrearEvento() {
 		getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
@@ -81,7 +93,6 @@ public class CrearEvento extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		
 		panelOpciones = new JPanel();
 
 		panelOpciones.addMouseListener(new MouseAdapter() {
@@ -159,7 +170,6 @@ public class CrearEvento extends JFrame {
 		btnOpciones.setBackground(SystemColor.controlHighlight);
 		btnOpciones.setBounds(480, 41, 78, 23);
 		cabecera.add(btnOpciones);
-		
 
 		lblFotoMaria = new JLabel("");
 		lblFotoMaria.setHorizontalAlignment(SwingConstants.CENTER);
@@ -332,21 +342,13 @@ public class CrearEvento extends JFrame {
 
 	}
 
+	/**
+	 * Getters llamados por el controlador
+	 * 
+	 * @return atributos del evento que se acaba de crear
+	 */
 	public static String getNombreEvento() {
 		return txtNombreEvento.getText();
-	}
-
-	protected void limpiarCampos() {
-		txtNombreEvento.setText(null);
-		textAreaObservaciones.setText(null);
-		textLugar.setText(null);
-
-	}
-
-	public void setNombreCabecera() {
-		String nombreUsuario = modelo.getNombreUsuario();
-		lblNombrePerfil.setText(nombreUsuario);
-
 	}
 
 	public static String getDeporte() {
@@ -371,6 +373,29 @@ public class CrearEvento extends JFrame {
 		return textAreaObservaciones.getText();
 	}
 
+	/**
+	 * Método para limpiar campos cuando se crea un evento.
+	 */
+	protected void limpiarCampos() {
+		txtNombreEvento.setText(null);
+		textAreaObservaciones.setText(null);
+		textLugar.setText(null);
+
+	}
+
+	/**
+	 * Poner nombre de cabecera del usuario que inicio sesión
+	 */
+	public void setNombreCabecera() {
+		String nombreUsuario = modelo.getNombreUsuario();
+		lblNombrePerfil.setText(nombreUsuario);
+
+	}
+
+	/**
+	 * Método llamado por el modelo para saber si la creación del evento fue exitosa
+	 * o no.
+	 */
 	public void actualizar() {
 		String resultado = modelo.getResultadoCrear();
 		if (resultado.equals("Correcto")) {

@@ -1,5 +1,9 @@
 package vista;
 
+/**
+ * Clase Eventos, Mostará una tabla recogida del modelo con los eventos de la BD, podremos seleccionarlos para verlos y 
+ * mostrarnos su respectiva pantalla infoevento. También tiene la función de guardar una tabla y cargarla.
+ */
 import controlador.Controlador;
 import modelo.Modelo;
 import modelo.Tabla;
@@ -75,6 +79,11 @@ public class Eventos extends JFrame {
 	private JButton btnCerrarSesion;
 	private JButton btnOpciones;
 
+	/**
+	 * Setters MVC
+	 * 
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -83,6 +92,10 @@ public class Eventos extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos, así como llamadas al
+	 * controlador si se llama a los distintos botones.
+	 */
 	public Eventos() {
 		setResizable(false);
 		setTitle("Todos los eventos");
@@ -332,6 +345,9 @@ public class Eventos extends JFrame {
 		getContentPane().add(btnGuardar);
 	}
 
+	/**
+	 * Método para cargar una tabla guardada en un archivo a modo de Backup
+	 */
 	protected void cargarTabla() {
 
 		File rutaProyecto = new File(System.getProperty("user.dir"));
@@ -354,6 +370,9 @@ public class Eventos extends JFrame {
 
 	}
 
+	/**
+	 * Método para guardar un objeto tabla en un archivo
+	 */
 	protected void guardarTabla() {
 		File rutaProyecto = new File(System.getProperty("user.dir"));
 		JFileChooser fc = new JFileChooser(rutaProyecto);
@@ -376,6 +395,10 @@ public class Eventos extends JFrame {
 
 	}
 
+	/**
+	 * Metodo para habilitar o desabilitar botón en caso de tener seleccionada
+	 * alguna fila de la tabla o no
+	 */
 	protected void habilitarBoton() {
 		if (fila == -1)
 			btnEntrarEvento.setEnabled(false);
@@ -383,11 +406,18 @@ public class Eventos extends JFrame {
 			btnEntrarEvento.setEnabled(true);
 	}
 
+	/**
+	 * Poner nombre de cabecera del usuario que inicio sesión
+	 */
 	public void setNombreCabecera() {
 		String nombreUsuario = modelo.getNombreUsuario();
 		lblNombreU.setText(nombreUsuario);
 	}
 
+	/**
+	 * Getter para el controlador
+	 * @return fila seleccionada que coincide con el codigo de evento  + 1 en la BD
+	 */
 	public int getCodigoEvento() {
 		return fila + 1;
 	}

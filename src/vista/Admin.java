@@ -1,5 +1,10 @@
 package vista;
 
+/**
+ * Clase pantalla Admin - Sólamente la verán los que tengan el rol de admin. 
+ * Funciones:
+ * * Consultar y poder elmiminar usuarios
+ */
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -53,7 +58,11 @@ public class Admin extends JFrame {
 	private JLabel lblNewLabel_User;
 	private JButton btnGuardarTabla;
 	private JButton btnCargar;
+	private JLabel lblAdmin;
 
+	/**
+	 * Constructor por defecto, instanciación de los elementos de la pantalla
+	 */
 	public Admin() {
 		getContentPane().setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,25 +84,16 @@ public class Admin extends JFrame {
 		lblSportsChoice.setBounds(10, 11, 346, 73);
 		panel.add(lblSportsChoice);
 
-		lblNewLabel_User = new JLabel("New label");
+		lblAdmin = new JLabel("Admin");
+		lblAdmin.setFont(new Font("Century Gothic", Font.PLAIN, 24));
+		lblAdmin.setBounds(454, 11, 114, 63);
+		panel.add(lblAdmin);
+
+		lblNewLabel_User = new JLabel();
 		lblNewLabel_User.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_User.setIcon(new ImageIcon(Signup.class.getResource("/imagenes/logo.png")));
 		lblNewLabel_User.setBounds(168, 106, 93, 58);
 		getContentPane().add(lblNewLabel_User);
-
-		JButton btnAdmin = new JButton("Admin");
-		btnAdmin.setFont(new Font("Century Gothic", Font.PLAIN, 24));
-		btnAdmin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		btnAdmin.setHorizontalAlignment(SwingConstants.RIGHT);
-		btnAdmin.setBorder(null);
-		btnAdmin.setBackground(SystemColor.controlHighlight);
-		btnAdmin.setBounds(408, 28, 193, 36);
-		panel.add(btnAdmin);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(73, 175, 476, 243);
@@ -103,6 +103,7 @@ public class Admin extends JFrame {
 		scrollPane.setViewportView(tableUsuarios);
 
 		btnEliminar = new JButton("ELiminar");
+		// Lllamada a la funcionalidad para eliminar un usuario
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.eliminarUsuario();
@@ -154,6 +155,7 @@ public class Admin extends JFrame {
 		});
 		btnCargar.setBounds(547, 232, 79, 48);
 		getContentPane().add(btnCargar);
+		// Cuando carga la ventana, pide al modelo, el modelo de la tabla de admin
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
@@ -162,6 +164,22 @@ public class Admin extends JFrame {
 		});
 	}
 
+	/**
+	 * Setters del patrón MVC
+	 * 
+	 * @param controlador y modelo
+	 */
+	public void setControlador(Controlador controlador) {
+		this.controlador = controlador;
+	}
+
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
+	/**
+	 * Método para cargar una tabla guardada en un archivo a modo de Backup
+	 */
 	protected void cargarTabla() {
 		File rutaProyecto = new File(System.getProperty("user.dir"));
 		JFileChooser fc = new JFileChooser(rutaProyecto);
@@ -174,6 +192,8 @@ public class Admin extends JFrame {
 				Tabla tablaUsers = (Tabla) ois.readObject();
 				modelo.setTablaAdmin((DefaultTableModel) tablaUsers.getTabla());
 				tableUsuarios.setModel(modelo.getModeloTablaAdmin());
+				ois.close();
+				fis.close();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -183,6 +203,9 @@ public class Admin extends JFrame {
 
 	}
 
+	/**
+	 * Método para guardar un objeto tabla en un archivo
+	 */
 	protected void guardarTabla() {
 		File rutaProyecto = new File(System.getProperty("user.dir"));
 		JFileChooser fc = new JFileChooser(rutaProyecto);
@@ -204,20 +227,21 @@ public class Admin extends JFrame {
 		}
 	}
 
-	public void setControlador(Controlador controlador) {
-		this.controlador = controlador;
-	}
-
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
-	}
-
+	/**
+	 * Getter llamado por el modelo
+	 * 
+	 * @return nombre del usuario que hay que eliminar
+	 */
 	public String getNombre() {
 		int fila = tableUsuarios.getSelectedRow();
 		String nombre = (String) modelo.getModeloTablaAdmin().getValueAt(fila, 1);
 		return nombre;
 	}
 
+	/**
+	 * Método llamado por el controlador al eliminar el usuario para volver a poner
+	 * la tabla sin el usuario eliminado
+	 */
 	public void actualizar() {
 		tableUsuarios.setModel(modelo.getModeloTablaAdmin());
 	}

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
@@ -238,8 +239,10 @@ public class Modelo {
 	public DefaultTableModel getModeloTablaEventos() {
 		return modeloTablaEventos;
 	}
+
 	/**
 	 * Método para asignar tablemodel externo a la tabla eventos
+	 * 
 	 * @param tablemodel recuperado
 	 */
 	public void setTablaEventos(DefaultTableModel tabla) {
@@ -253,9 +256,9 @@ public class Modelo {
 	private void cargarForo() {
 		// El codigo de foro hace referencia al codigo de evento porque siempre va a ser
 		// el mismo
-		String selectForo = "select CONCAT(u.nombre,': ', m.mensaje) from mensaje m INNER JOIN usuarios u ON u.codigo_usuario = m.cod_usuario where cod_foro = "
+		String selectForo = "select CONCAT(u.nombre,': ', m.mensaje),fecha_envio from mensaje m INNER JOIN usuarios u ON u.codigo_usuario = m.cod_usuario where cod_foro = "
 				+ codigoEvento + "";
-		int numColumnas = 1;
+		int numColumnas = 2;
 		int numFilas = getNumFilas(selectForo);
 		String[] cabecera = new String[numColumnas];
 		Object[][] contenido = new Object[numFilas][numColumnas];
@@ -264,10 +267,13 @@ public class Modelo {
 			ResultSet rset = seleccionarForo.executeQuery(selectForo);
 			ResultSetMetaData rsmd = rset.getMetaData();
 			cabecera[0] = "FORO DEL EVENTO";
+			cabecera[1] = "Hora";
+
 			int fila = 0;
 			while (rset.next()) {
 				for (int col = 1; col <= numColumnas; col++) {
 					contenido[fila][col - 1] = rset.getString(col);
+
 				}
 				fila++;
 			}
@@ -337,8 +343,7 @@ public class Modelo {
 	public void verificarLogin(String user, String pass) {
 		crearConexion(); // Se retrasa, en caso de que no esté correcto el archivo no dará error al
 							// iniciar
-		fallosLogin = 0;
-
+		String rol = "";
 		int resultado = 0;
 		String queryLogin = "Select * from usuarios where nombre=? AND passwd=?";
 		try {
@@ -346,11 +351,13 @@ public class Modelo {
 			pstmtLogin.setString(1, user);
 			pstmtLogin.setString(2, pass);
 			ResultSet rset = pstmtLogin.executeQuery();
+
 			// Si no existe no habrá next
 			if (!rset.next()) {
 				resultado = 0;
 			} else {
 				resultado = 1;
+				rol = rset.getString(8);
 			}
 			pstmtLogin.close();
 		} catch (SQLException e) {
@@ -366,7 +373,7 @@ public class Modelo {
 				resultadoLogin = "Incorrecto";
 			}
 		} else {
-			if (user.equals("admin")) {
+			if (rol.equals("admin")) {
 				resultadoLogin = "admin";
 			} else {
 				resultadoLogin = "Correcto";
@@ -713,7 +720,7 @@ public class Modelo {
 	 * @param mensaje a poner en el chat
 	 */
 	public void subirMensaje(String mensaje) {
-		String insertMensaje = "insert into mensaje (mensaje,cod_usuario,cod_foro) values (?,?,?)";
+		String insertMensaje = "insert into mensaje (mensaje,cod_usuario,cod_foro,fecha_envio) values (?,?,?,NOW())";
 		try {
 			PreparedStatement insertM = conexion.prepareStatement(insertMensaje);
 			insertM.setString(1, mensaje);
@@ -844,6 +851,7 @@ public class Modelo {
 
 	/**
 	 * Método para eliminar usuario de la BD
+	 * 
 	 * @param nombre de usuario a eliminar
 	 */
 	public void eliminarUsuario(String nombre) {
@@ -860,7 +868,9 @@ public class Modelo {
 	}
 
 	/**
-	 * Método para modificar los campos de un perfil de usuario, los parámetros son los nuevos campos
+	 * Método para modificar los campos de un perfil de usuario, los parámetros son
+	 * los nuevos campos
+	 * 
 	 * @param user
 	 * @param nombre
 	 * @param ubicacion

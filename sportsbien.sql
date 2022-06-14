@@ -13,6 +13,7 @@ create table usuarios (
 	fecha_nacimiento varchar (20),
     passwd varchar(20),
     sexo varchar(10) default "Otro",
+    rol varchar(10) default "user",
 	primary key (codigo_usuario),
 	unique key (nombre)
 )engine=innodb;
@@ -56,6 +57,7 @@ CREATE TABLE mensaje (
     mensaje varchar(200),
     cod_usuario int,
     cod_foro int,
+    fecha_envio DATETIME,
     primary key (cod_mensaje),
     foreign key (cod_usuario) references usuarios (codigo_usuario),
     foreign key (cod_foro) references foro (codigo_foro)
@@ -106,14 +108,16 @@ VALUES
 ('4', '4'),
 ('5', '5');
 
-INSERT INTO mensaje (cod_mensaje,mensaje,cod_usuario,cod_foro)
+INSERT INTO mensaje (cod_mensaje,mensaje,cod_usuario,cod_foro,fecha_envio)
 VALUES
-('1', '¿Que dia es la pachanguitafreecovid?','2','5'),
-('2', 'Creo que es el martes','3','5'),
-('3', 'El polideportivo de Las Rozas esta cerrado','5','3'),
-('4', 'Pues na nos quedamos sin partido','7','3');
+('1', '¿Que dia es la pachanguitafreecovid?','2','5',NOW()),
+('2', 'Creo que es el martes','3','5',NOW()),
+('3', 'El polideportivo de Las Rozas esta cerrado','5','3',NOW()),
+('4', 'Pues na nos quedamos sin partido','7','3',NOW());
 
+update usuarios set rol = "admin" where nombre = "admin";
 
+select * from usuarios;
  -- Selects
 
 use sportchoice;

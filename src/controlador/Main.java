@@ -1,5 +1,7 @@
 package controlador;
-
+/**
+ * Clase Main - Instanciación de todos los objetos del patron MVC
+ */
 import java.util.Iterator;
 
 import javax.swing.JFrame;
@@ -11,6 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		Modelo modelo = new Modelo();
 		Controlador controlador = new Controlador();
+		
 		// Vistas
 		JFrame[] pantallas;
 		pantallas = new JFrame[11];
@@ -41,9 +44,11 @@ public class Main {
 		
 		pantallas[0].setVisible(true);
 
+		// Asignar pantallas y modelo al controlador
 		controlador.setPantallas(pantallas);
 		controlador.setModelo(modelo);
 
+		// Asignar modelo y controlador  a las pantallas
 		((CrearEvento) pantallas[6]).setModelo(modelo);
 		((CrearEvento) pantallas[6]).setControlador(controlador);
 		((Ayuda) pantallas[2]).setControlador(controlador);
@@ -67,6 +72,7 @@ public class Main {
 		((DatosConex) pantallas[10]).setControlador(controlador);
 		((DatosConex) pantallas[10]).setModelo(modelo);
 		
+		// Asignar pantallas al modelo
 		modelo.setPantallas(pantallas);
 
 	}

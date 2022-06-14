@@ -1,5 +1,8 @@
 package vista;
 
+/**
+ * Pantalla ayuda, méramente informativa para hablar sobre el proyecto, o a quién está dirigido
+ */
 import controlador.Controlador;
 import modelo.Modelo;
 import java.awt.EventQueue;
@@ -47,7 +50,10 @@ public class Ayuda extends JFrame {
 	private JButton btnCerrarSesion;
 	private JPanel panelOpciones;
 	private JPanel panelOpciones_1;
-
+	/**
+	 * Setters MVC
+	 * @param controlador y modelo
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
@@ -56,6 +62,10 @@ public class Ayuda extends JFrame {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * Constructor e instanciación de los elementos de la pantalla
+	 *
+	 */
 	public Ayuda() {
 		getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
@@ -79,7 +89,7 @@ public class Ayuda extends JFrame {
 		panelOpciones_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 			}
 		});
 		panelOpciones_1.setVisible(false);
@@ -255,7 +265,9 @@ public class Ayuda extends JFrame {
 		txtpnParaQue_2_1_1.setEditable(false);
 		txtpnParaQue_2_1_1.setBackground(Color.WHITE);
 	}
-
+	/**
+	 * Poner nombre de cabecera del usuario que inicio sesión
+	 */
 	public void setNombreCabecera() {
 		String nombreUsuario = modelo.getNombreUsuario();
 		lblNombre.setText(nombreUsuario);
