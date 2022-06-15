@@ -100,6 +100,7 @@ public class Admin extends JFrame {
 		getContentPane().add(scrollPane);
 
 		tableUsuarios = new JTable();
+		tableUsuarios.setDefaultEditor(Object.class, null);
 		scrollPane.setViewportView(tableUsuarios);
 
 		btnEliminar = new JButton("ELiminar");

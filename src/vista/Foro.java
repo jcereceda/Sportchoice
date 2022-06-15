@@ -117,7 +117,7 @@ public class Foro extends JFrame {
 		btnEditarPerfil1.setBounds(2, 2, 164, 44);
 		panelOpciones.add(btnEditarPerfil1);
 
-		btnCerrarSesion = new JButton("Cerrar Sesión");
+		btnCerrarSesion = new JButton("Cerrar Sesiï¿½n");
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.cambioPantallas(9, 0);
@@ -259,6 +259,8 @@ public class Foro extends JFrame {
 		getContentPane().add(scrollPane);
 
 		table_1 = new JTable();
+		table_1.setShowHorizontalLines(false);
+		table_1.setShowVerticalLines(false);
 		table_1.setEnabled(false);
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
