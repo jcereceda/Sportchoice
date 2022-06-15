@@ -168,8 +168,6 @@ Select * from usuarios where nombre = "Gervasio";
 -- Insertar un nuevo usuario
 Insert into usuarios (nombre,email,passwd) VALUES ("Pepe","pepe@u-tad.com","1234");
 
--- Insertar un usuario en un evento 
-insert into usuario_eventos (cod_usuario,cod_evento) VALUES (2,3);
 
 -- Insertar nuevo evento
 INSERT INTO eventos (nombre,fecha,cod_deporte,lugar,numeroUsuarios,observaciones) VALUES ("Partido","2022-06-14",1,"Canchas",12,"");
