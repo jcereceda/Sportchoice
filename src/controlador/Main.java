@@ -16,7 +16,7 @@ public class Main {
 		
 		// Vistas
 		JFrame[] pantallas;
-		pantallas = new JFrame[11];
+		pantallas = new JFrame[12];
 
 		Signup signup = new Signup();
 		Eventos todosEventos = new Eventos();
@@ -29,6 +29,7 @@ public class Main {
 		Admin admin = new Admin();
 		Foro foro = new Foro();
 		DatosConex datosConex = new DatosConex();
+		CambioPass cambiopass = new CambioPass();
 		
 		pantallas[0] = login;
 		pantallas[1] = signup;
@@ -41,6 +42,7 @@ public class Main {
 		pantallas[8] = admin;
 		pantallas[9] = foro;
 		pantallas[10] = datosConex;
+		pantallas[11] = cambiopass;
 		
 		pantallas[0].setVisible(true);
 
@@ -71,6 +73,8 @@ public class Main {
 		((Foro) pantallas[9]).setControlador(controlador);
 		((DatosConex) pantallas[10]).setControlador(controlador);
 		((DatosConex) pantallas[10]).setModelo(modelo);
+		((CambioPass)pantallas[11]).setModelo(modelo);
+		((CambioPass) pantallas[11]).setControlador(controlador);
 		
 		// Asignar pantallas al modelo
 		modelo.setPantallas(pantallas);

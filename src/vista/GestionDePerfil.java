@@ -62,6 +62,7 @@ public class GestionDePerfil extends JFrame {
 	private Controlador controlador;
 	private JLabel lblSportsChoice;
 	private JLabel lblModif;
+	private JButton btnCambiarPass;
 
 	/**
 	 * Setters MVC
@@ -107,12 +108,12 @@ public class GestionDePerfil extends JFrame {
 		panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBorder(new LineBorder(SystemColor.controlHighlight, 4, true));
-		panel_2.setBounds(77, 121, 467, 341);
+		panel_2.setBounds(77, 121, 467, 351);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 
 		panel_1 = new JPanel();
-		panel_1.setBounds(215, 26, 223, 286);
+		panel_1.setBounds(197, 26, 241, 305);
 		panel_2.add(panel_1);
 		panel_1.setBorder(new LineBorder(new Color(227, 227, 227), 4, true));
 		panel_1.setBackground(SystemColor.textHighlightText);
@@ -213,6 +214,17 @@ public class GestionDePerfil extends JFrame {
 		lblModif.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModif.setBounds(44, 302, 143, 29);
 		panel_2.add(lblModif);
+		
+		btnCambiarPass = new JButton("Cambiar Contrase\u00F1a");
+		btnCambiarPass.setBackground(new Color(173, 255, 47));
+		btnCambiarPass.setFont(new Font("Bauhaus 93", Font.PLAIN, 11));
+		btnCambiarPass.setBounds(44, 231, 143, 20);
+		panel_2.add(btnCambiarPass);
+		btnCambiarPass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.cambioPantallas(5, 11);
+			}
+		});
 
 		btnAtras = new JButton("");
 		btnAtras.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -303,5 +315,4 @@ public class GestionDePerfil extends JFrame {
 	public void perfilActualizado() {
 		lblModif.setText("Perfil Actualizado");
 	}
-
 }
