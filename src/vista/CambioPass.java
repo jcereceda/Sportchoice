@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import controlador.Controlador;
 import modelo.Modelo;
 
-public class CambioPass extends JFrame {
+public class CambioPass extends JFrame implements Pantallas{
 
 	private JPanel contentPane;
 	private Modelo modelo;

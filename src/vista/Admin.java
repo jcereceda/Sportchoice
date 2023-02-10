@@ -46,7 +46,7 @@ import java.awt.Cursor;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class Admin extends JFrame {
+public class Admin extends JFrame implements Pantallas{
 
 	private JPanel panel;
 	private Controlador controlador;

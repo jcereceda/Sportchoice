@@ -30,7 +30,7 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
-public class InicioAPP extends JFrame {
+public class InicioAPP extends JFrame implements Pantallas{
 
 	private JLabel lblInicio;
 	private JLabel lblCr7;

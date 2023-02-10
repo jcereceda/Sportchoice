@@ -35,7 +35,7 @@ import javax.swing.JPasswordField;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
 
-public class Login extends JFrame {
+public class Login extends JFrame  implements Pantallas {
 
 	private JTextField txtUser;
 	private JPanel panel, panel_1;

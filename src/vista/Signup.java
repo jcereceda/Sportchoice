@@ -25,10 +25,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Cursor;
 
-public class Signup extends JFrame {
+public class Signup extends JFrame implements Pantallas{
 
 	private JTextField txtUsuario;
-	private JTextField textField_2;
+	private JTextField txtCorreo;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -123,13 +123,13 @@ public class Signup extends JFrame {
 		lblNewLabel_5.setBounds(-31, 114, 101, 47);
 		panel_1.add(lblNewLabel_5);
 
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		textField_2.setBorder(new LineBorder(SystemColor.scrollbar, 2, true));
-		textField_2.setBackground(SystemColor.controlHighlight);
-		textField_2.setBounds(61, 124, 184, 26);
-		panel_1.add(textField_2);
-		textField_2.setColumns(10);
+		txtCorreo = new JTextField();
+		txtCorreo.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		txtCorreo.setBorder(new LineBorder(SystemColor.scrollbar, 2, true));
+		txtCorreo.setBackground(SystemColor.controlHighlight);
+		txtCorreo.setBounds(61, 124, 184, 26);
+		panel_1.add(txtCorreo);
+		txtCorreo.setColumns(10);
 
 		lblcon = new JLabel("New label");
 		lblcon.setIcon(new ImageIcon(Signup.class.getResource("/imagenes/Imagen15.png")));
@@ -226,7 +226,7 @@ public class Signup extends JFrame {
 	}
 
 	public String getEmail() {
-		return textField_2.getText();
+		return txtCorreo.getText();
 	}
 
 	// Comprobacion de que sean iguales las contraseñas
@@ -247,6 +247,10 @@ public class Signup extends JFrame {
 		if (resultadoSignup.equals("Correcto")) {
 			lblError.setForeground(SystemColor.black);
 			lblError.setText("Usuario Creado");
+			txtCorreo.setText("");
+			txtUsuario.setText("");
+			textContrasena1.setText("");
+			textContrasena2.setText("");
 		} else if (resultadoSignup.equals("passwd no coincidentes")) {
 			lblError.setForeground(SystemColor.RED);
 			lblError.setText("Las contraseñas no coinciden");

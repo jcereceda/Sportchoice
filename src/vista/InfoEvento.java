@@ -40,7 +40,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Cursor;
 
-public class InfoEvento extends JFrame {
+public class InfoEvento extends JFrame implements Pantallas{
 
 	private JButton btnAyuda;
 	private JLabel lblLogo;

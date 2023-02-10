@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 
-public class GestionDePerfil extends JFrame {
+public class GestionDePerfil extends JFrame implements Pantallas{
 
 	private JTextField txtNombre;
 	private JTextField txtUbicacion;

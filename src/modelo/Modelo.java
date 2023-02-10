@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +52,8 @@ public class Modelo {
 	 */
 	public Modelo() {
 		fallosLogin = 0;
+		crearConexion();
+		
 	}
 
 	/**
@@ -422,7 +426,23 @@ public class Modelo {
 		if (pass.equals("")) {
 			resultadoSignup = "passwd no coincidentes";
 		}
-
+		
+		
+		// Aplicamos funcion hash a la contraseña 
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] passByte = pass.getBytes();
+			md.update(passByte);
+			byte[] resumen = md.digest();
+			pass = new String(resumen);
+			System.out.println(pass);
+			
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		// Insertamos
 		String insertar = "Insert into usuarios (nombre,email,passwd) VALUES (?,?,?)";
 		if (resultadoSignup.equals("Correcto")) {

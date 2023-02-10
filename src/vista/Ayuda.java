@@ -32,7 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import java.awt.Cursor;
 
-public class Ayuda extends JFrame {
+public class Ayuda extends JFrame implements Pantallas {
 
 	private JPanel cabecera;
 	private JLabel lblNewLabel_4;

@@ -57,7 +57,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-public class Eventos extends JFrame {
+public class Eventos extends JFrame implements Pantallas {
 
 	private JPanel cabecera;
 	private JLabel lblTitulo, lblAyuda, lblFotoMaria, lblEditPerfil, lblNombreU, lblLogo;
@@ -401,10 +401,11 @@ public class Eventos extends JFrame {
 	 * alguna fila de la tabla o no
 	 */
 	protected void habilitarBoton() {
-		if (fila == -1)
+		if (fila == -1) {
 			btnEntrarEvento.setEnabled(false);
-		else
+		} else {
 			btnEntrarEvento.setEnabled(true);
+		}
 	}
 
 	/**
@@ -417,7 +418,8 @@ public class Eventos extends JFrame {
 
 	/**
 	 * Getter para el controlador
-	 * @return fila seleccionada que coincide con el codigo de evento  + 1 en la BD
+	 * 
+	 * @return fila seleccionada que coincide con el codigo de evento + 1 en la BD
 	 */
 	public int getCodigoEvento() {
 		return fila + 1;

@@ -29,7 +29,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-public class DatosConex extends JFrame {
+public class DatosConex extends JFrame implements Pantallas{
 
 	private JFrame frame;
 	private JTextField txtUsuario;

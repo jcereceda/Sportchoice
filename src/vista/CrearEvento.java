@@ -41,7 +41,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Cursor;
 
-public class CrearEvento extends JFrame {
+public class CrearEvento extends JFrame implements Pantallas {
 
 	private JPanel cabecera, panelCrearEvento;
 	private JLabel lblNombrePerfil, lblEditarPerfil, lblFotoMaria, lblLogoSP, fotoEventos, lblNuevoEvento;
